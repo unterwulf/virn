@@ -18,6 +18,7 @@ die () {
 
 # Create targets file.
 TARGETS="/tmp/virn-$$"
+trap "rm -f $TARGETS" EXIT
 for FILE; do echo "$FILE" >> $TARGETS; done
 
 # Start the $EDITOR so we can edit our file names.
@@ -27,7 +28,6 @@ if $EDITOR $TARGETS; then
 	# Exit with error message if number of arguments and line count of
 	# targets file differ.
 	if [ "$COUNT" -ne $# ]; then
-		rm $TARGETS
         die 'Numbers of files mismatch.'
 	fi
 
@@ -41,6 +41,3 @@ if $EDITOR $TARGETS; then
 		shift
 	done < $TARGETS
 fi
-
-rm $TARGETS
-
