@@ -23,7 +23,7 @@ for FILE; do echo "$FILE" >> $TARGETS; done
 
 # Start the $EDITOR so we can edit our file names.
 if $EDITOR $TARGETS; then
-	COUNT="`wc -l $TARGETS | sed -nre 's/^[ \t]*([0-9]+).*$/\1/p'`"
+	COUNT=`cat $TARGETS | wc -l`
 
 	# Exit with error message if number of arguments and line count of
 	# targets file differ.
