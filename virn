@@ -14,7 +14,7 @@ die () {
 [ -z "$EDITOR" ] && die '$EDITOR not defined.'
 
 # Exit before doing anything if there are no arguments anyway.
-[ $# -eq 0 ] && exit
+[ $# -eq 0 ] && die 'Missing file operand.'
 
 # Create targets file.
 TARGETS="/tmp/virn-$$"
