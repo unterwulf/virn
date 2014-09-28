@@ -19,7 +19,7 @@ die() {
 # Create targets file.
 targets="/tmp/virn-$$"
 trap "rm -f $targets" EXIT
-for file; do echo "$file" >> $targets; done
+for file; do echo "$file"; done >> $targets
 
 # Start the $EDITOR so we can edit our file names.
 if $EDITOR $targets; then
