@@ -17,27 +17,27 @@ die() {
 [ $# -eq 0 ] && die 'Missing file operand.'
 
 # Create targets file.
-TARGETS="/tmp/virn-$$"
-trap "rm -f $TARGETS" EXIT
-for FILE; do echo "$FILE" >> $TARGETS; done
+targets="/tmp/virn-$$"
+trap "rm -f $targets" EXIT
+for file; do echo "$file" >> $targets; done
 
 # Start the $EDITOR so we can edit our file names.
-if $EDITOR $TARGETS; then
-	COUNT=`wc -l <$TARGETS`
+if $EDITOR $targets; then
+	count=`wc -l <$targets`
 
 	# Exit with error message if number of arguments and line count of
 	# targets file differ.
-	if [ "$COUNT" -ne $# ]; then
+	if [ "$count" -ne $# ]; then
 		die 'Numbers of files mismatch.'
 	fi
 
 	# Read targets file line by line and rename the source
 	# files from ARGV appropriately.
-	while read TARGET; do
-		SOURCE=$1
-		if [ "$SOURCE" != "$TARGET" ]; then
-			mv -f -- "$SOURCE" "$TARGET"
+	while read target; do
+		source=$1
+		if [ "$source" != "$target" ]; then
+			mv -f -- "$source" "$target"
 		fi
 		shift
-	done < $TARGETS
+	done < $targets
 fi
