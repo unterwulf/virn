@@ -27,17 +27,13 @@ if $EDITOR $targets; then
 
 	# Exit with error message if number of arguments and line count of
 	# targets file differ.
-	if [ "$count" -ne $# ]; then
-		die 'Numbers of files mismatch.'
-	fi
+	[ "$count" -ne $# ] && die 'Numbers of files mismatch.'
 
 	# Read targets file line by line and rename the source
 	# files from ARGV appropriately.
 	while read target; do
 		source=$1
-		if [ "$source" != "$target" ]; then
-			mv -f -- "$source" "$target"
-		fi
+		[ "$source" != "$target" ] && mv -f -- "$source" "$target"
 		shift
 	done < $targets
 fi
